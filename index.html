@@ -1,0 +1,13 @@
+---
+layout: base
+title: mups
+debug: 
+---
+{% if page.debug %}
+<p>debug</p>
+<!-- Display Raw Data to Debug -->
+<pre>
+
+{{ site.data.mups | jsonify }}
+
+</pre>
