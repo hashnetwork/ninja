@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ninja Comics</title>
+    <!-- Include js-yaml from a CDN -->
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.0.0/dist/js-yaml.min.js"></script>
 </head>
 <body>
@@ -11,12 +12,12 @@
     <div id="ninja-list"></div>
 
     <script>
-        // Fetch and load the YAML file containing the ninja data
+        // Fetch the YAML file from the 'data' folder
         fetch('data/njc.yml')
-            .then(response => response.text())
-            .then(data => {
-                // Parse the YAML data using js-yaml
-                const ninjaData = jsyaml.load(data);
+            .then(response => response.text())  // Get the YAML as text
+            .then(yamlData => {
+                // Parse the YAML data
+                const ninjaData = jsyaml.load(yamlData);
 
                 // Find the container where we want to display the ninja data
                 const ninjaListDiv = document.getElementById('ninja-list');
@@ -24,10 +25,11 @@
                 // Create a list to display the ninjas
                 let ninjaListHtml = '<ul>';
 
-                ninjaData.ninjacomics.forEach(ninja => {
+                // Loop through each ninja in the 'njc' array and generate HTML
+                ninjaData.njc.forEach(ninja => {
                     ninjaListHtml += `
                         <li>
-                            <strong>${ninja.name}</strong><br>
+                            <h3>${ninja.name}</h3>
                             <p>${ninja.description}</p>
                         </li>
                     `;
