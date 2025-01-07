@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Comics</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.0.0/dist/js-yaml.min.js"></script>
+</head>
+<body>
+    <h1>Ninja Comics</h1>
+    <div id="ninja-list"></div>
+
+    <script>
+        // Fetch and load the YAML file containing the ninja data
+        fetch('njc.yml')
+            .then(response => response.text())
+            .then(data => {
+                // Parse the YAML data using js-yaml
+                const ninjaData = jsyaml.load(data);
+
+                // Find the container where we want to display the ninja data
+                const ninjaListDiv = document.getElementById('ninja-list');
+
+                // Create a list to display the ninjas
+                let ninjaListHtml = '<ul>';
+
+                ninjaData.ninjacomics.forEach(ninja => {
+                    ninjaListHtml += `
+                        <li>
+                            <strong>${ninja.name}</strong><br>
+                            <p>${ninja.description}</p>
+                        </li>
+                    `;
+                });
+
+                ninjaListHtml += '</ul>';
+
+                // Insert the list into the page
+                ninjaListDiv.innerHTML = ninjaListHtml;
+            })
+            .catch(error => {
+                console.error('Error loading or parsing YAML:', error);
+            });
+    </script>
+</body>
+</html>
